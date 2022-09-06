@@ -32,7 +32,7 @@ function App() {
   useEffect(() => {
     socket.on("recived_msg", ({ user, message }) => {
       const msg = `${user} send: ${message}`;
-      setMessages(prevState => [msg, ...prevState]);
+      setMessages(prevState => [...prevState, msg]);
     });
   }, [socket]);
 
@@ -50,9 +50,11 @@ function App() {
       message: newMessage,
     };
 
+    console.log(newMsgData);
+
     socket.emit("send_msg", newMsgData);
-    const msg = `${user} send ${{ newMessage }}`;
-    setMessages(prevState => [msg, ...prevState]);
+    const msg = `${user} send: ${newMessage}`;
+    setMessages(prevState => [...prevState, msg]);
     setNewMessage("");
   };
 
