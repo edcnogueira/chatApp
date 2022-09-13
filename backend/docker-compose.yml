@@ -1,0 +1,21 @@
+version: "3"
+services:
+  database:
+    image: "postgres"
+    container_name: chat_app
+    ports:
+      - 5433:5433
+    environment:
+      POSTGRES_PASSWORD: senha
+      POSTGRES_DB: chat
+      POSTGRES_USER: admin
+    restart: on-failure
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    networks:
+      - postgres-compose-network
+volumes:
+  database-data:
+networks:
+  postgres-compose-network:
+    driver: bridge
